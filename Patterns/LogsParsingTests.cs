@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using NUnit.Framework;
@@ -8,13 +9,21 @@ namespace Patterns
 {
     [TestFixture]
     public class LogsParsingTests
-    {
+	{
+		private DateTime start;
         [TestFixtureSetUp]
         public void SetUp()
         {
             if (!File.Exists("Files/ips.txt"))
                 ZipFile.ExtractToDirectory("Files/ips.zip", "Files");
+			start = DateTime.Now;
         }
+
+		[TestFixtureTearDown]
+		public void TearDown()
+		{
+			Console.WriteLine(DateTime.Now - start);
+		}
 
         [Test]
         public void SingleThread()

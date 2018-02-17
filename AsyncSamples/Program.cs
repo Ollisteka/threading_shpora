@@ -23,12 +23,12 @@ namespace AsyncSamples
 
 				Task task;
 //				task = FileContinueWith();
-//				task = FileAsync();
+////				task = FileAsync();
 //				task = FileCompareAsync();
-				task = LambdaAsync();
-
-//				task = DownloadWebPageAsync();
-
+//				task = LambdaAsync();
+//
+				task = DownloadWebPageAsync();
+//
 				Console.WriteLine("Main thread still working");
 				task.Wait();
 				Console.WriteLine("Main thread finishing");
@@ -51,8 +51,9 @@ namespace AsyncSamples
 
 			var evnt = new AutoResetEvent(false);
 
-			using(var fStream = new FileStream("file1.txt", FileMode.Create, FileAccess.ReadWrite, FileShare.None, WRITE_BLOCK_SIZE, FileOptions.WriteThrough))
-			{
+			var fStream = new FileStream("file1.txt", FileMode.Create, FileAccess.ReadWrite, FileShare.None, WRITE_BLOCK_SIZE,
+				FileOptions.WriteThrough);
+			
 				var sw = Stopwatch.StartNew();
 
 				fStream.BeginWrite(buf, 0, buf.Length,
@@ -66,7 +67,7 @@ namespace AsyncSamples
 				Console.WriteLine("Started disk I/O! in {0} ms total (thread {1})", sw.ElapsedMilliseconds, Thread.CurrentThread.ManagedThreadId);
 
 				return evnt;
-			}
+			
 		}
 
 		public static Task FileContinueWith()
@@ -75,8 +76,9 @@ namespace AsyncSamples
 			new Random().NextBytes(buf);
 			Console.WriteLine("Generated random data");
 
-			using(var fStream = new FileStream("file2.txt", FileMode.Create, FileAccess.ReadWrite, FileShare.None, WRITE_BLOCK_SIZE, FileOptions.WriteThrough))
-			{
+			var fStream = new FileStream("file2.txt", FileMode.Create, FileAccess.ReadWrite, FileShare.None, WRITE_BLOCK_SIZE,
+				FileOptions.WriteThrough);
+			
 				var sw = Stopwatch.StartNew();
 
 				var copyToAsyncTask = fStream.WriteAsync(buf, 0, buf.Length);
@@ -90,7 +92,7 @@ namespace AsyncSamples
 				});
 				
 				return resultTask;
-			}
+			
 		}
 
 		public static async Task FileAsync()
@@ -189,7 +191,7 @@ namespace AsyncSamples
 		public static async Task DownloadWebPageAsync()
 		{
 			var sw = Stopwatch.StartNew();
-			var request = CreateRequest("http://e1.ru");
+			var request = CreateRequest("http://m.vk.com");
 			var response = await request.GetResponseAsync();
 			using(var stream = response.GetResponseStream())
 			{

@@ -27,10 +27,7 @@ namespace TPLSamples
 
         public static void ContinueWith()
         {
-            var crashingTask = Task.Run(() =>
-                                        {
-                                            throw new Exception("haha!");
-                                        });
+            var crashingTask = Task.Run(() => throw new Exception("haha!"));
             var continuationTask =
                 crashingTask.ContinueWith(t => Console.WriteLine("CrashingTask status is {0}", t.Status)/*, TaskContinuationOptions.OnlyOnRanToCompletion*/);
 

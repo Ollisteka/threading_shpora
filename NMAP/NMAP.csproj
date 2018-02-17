@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncScanner.cs" />
     <Compile Include="IPScanner.cs" />
     <Compile Include="PortStatus.cs" />
     <Compile Include="Program.cs" />

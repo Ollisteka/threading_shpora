@@ -12,7 +12,7 @@ namespace Patterns.LogParsers
             var usersStats = new Dictionary<string, int>();
             var fileLines = File.ReadAllLines(logPath);
 
-            Parallel.For(0, fileLines.Length,
+            Parallel.For(0, fileLines.Length, new ParallelOptions { MaxDegreeOfParallelism = 2 },
                 i =>
                 {
                     var ipInfo = IpInfo.Parse(fileLines[i]);

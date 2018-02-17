@@ -10,7 +10,7 @@ namespace Patterns
     {
         static void Main(string[] args)
         {
-            const int BigNumber = 1000000;
+            const int BigNumber = 10000;
             var fileName = Path.GetRandomFileName();
             using (var sw = new StreamWriter(fileName))
             {
@@ -19,8 +19,9 @@ namespace Patterns
             }
 
             var threadIds = new int[BigNumber];
-            File.ReadLines(fileName)
+            File.ReadAllLines(fileName)
             .AsParallel()
+			.WithDegreeOfParallelism(12)
             .ForAll(
                 line =>
                 {
