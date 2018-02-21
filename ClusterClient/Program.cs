@@ -24,7 +24,8 @@ namespace ClusterClient
             {
                 var clients = new ClusterClientBase[]
                               {
-                                  new RandomClusterClient(replicaAddresses)
+                                  new RandomClusterClient(replicaAddresses),
+								  new SimultaneousClient(replicaAddresses), 
                               };
                 var queries = new[] {"От", "топота", "копыт", "пыль", "по", "полю", "летит", "На", "дворе", "трава", "на", "траве", "дрова"};
 
